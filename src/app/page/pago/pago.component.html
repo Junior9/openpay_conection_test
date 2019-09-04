@@ -1,1 +1,109 @@
-<p>pago works!</p>
+<div class="pago">
+	<app-header></app-header>
+
+	<nav aria-label="breadcrumb">
+	  <ol class="breadcrumb">
+	    <li class="breadcrumb-item">1 Envío</li>
+	    <li class="breadcrumb-item active">2 Pago</li>
+	    <li class="breadcrumb-item">3 Revisar</li>
+	  </ol>
+	</nav>
+
+	<div class="inf_tarjeta">
+
+		<div class="row">
+			<div class="col"></div>
+			<div class="col">
+				<h4>Pagar con tarjeta</h4>
+				<small>Selecciona tu tipo de tarjeta</small>
+			</div>
+			<div class="col"></div>
+		</div>
+		
+
+
+		<div class="select_tarjeta">
+
+			<div class="tipo_tarjeta">
+				<div class="row">
+
+					<div class="col"></div>
+					<div class="col"><img src="https://png.pngtree.com/png-clipart/20190520/original/pngtree-visa-flat-icon-design-png-image_4094036.jpg" height="42" width="42"></div>
+					<div class="col"><img src="https://png.pngtree.com/png-clipart/20190520/original/pngtree-visa-flat-icon-design-png-image_4094036.jpg" height="42" width="42"></div>
+					<div class="col"></div>
+				</div>
+			</div>
+			
+		</div>
+
+		<div class="inf">
+			
+
+			<form action="#" method="POST" id="payment-form">
+                <input type="hidden" name="token_id" id="token_id">
+                <div class="pymnt-itm card active">
+                    <h2>Tarjeta de crédito o débito</h2>
+                    <div class="pymnt-cntnt">
+                        <div class="card-expl">
+                            <div class="credit"><h4>Tarjetas de crédito</h4></div>
+                            <div class="debit"><h4>Tarjetas de débito</h4></div>
+                        </div>
+                        <div class="sctn-row">
+                            <div class="sctn-col l">
+                                <label>Nombre del titular</label><input type="text" placeholder="Como aparece en la tarjeta" autocomplete="off" data-openpay-card="holder_name">
+                            </div>
+                            <div class="sctn-col">
+                                <label>Número de tarjeta</label><input type="text" autocomplete="off" data-openpay-card="card_number"></div>
+                            </div>
+                            <div class="sctn-row">
+                                <div class="sctn-col l">
+                                    <label>Fecha de expiración</label>
+                                    <div class="sctn-col half l"><input type="text" placeholder="Mes" data-openpay-card="expiration_month"></div>
+                                    <div class="sctn-col half l"><input type="text" placeholder="Año" data-openpay-card="expiration_year"></div>
+                                </div>
+                                <div class="sctn-col cvv"><label>Código de seguridad</label>
+                                    <div class="sctn-col half l"><input type="text" placeholder="3 dígitos" autocomplete="off" data-openpay-card="cvv2"></div>
+                                </div>
+                            </div>
+                            <div class="openpay"><div class="logo">Transacciones realizadas vía:</div>
+                            <div class="shield">Tus pagos se realizan de forma segura con encriptación de 256 bits</div>
+                        </div>
+                        <div class="sctn-row">
+                                <a href="/revisar" class="btn btn-primary">Pagar</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+		</div>
+
+	</div>
+
+	<div class="inf_paypal">
+
+		<div class="row">
+			<div class="col"></div>
+			<div class="col">
+				<h4>Pagar con Paypal</h4>
+			</div>
+			<div class="col"></div>
+		</div>
+
+		<div class="row">
+			<form>
+
+				<div class="col"></div>
+				<div class="col">
+					<div class="form-group">
+			    		<input type="text" class="form-control" id="paypal" aria-describedby="paypal" placeholder="Cuenta de PayPal">
+			  		</div>
+			  		<a href="#" class="btn btn-primary">Enviar</a>
+				</div>
+				<div class="col"></div>
+			</form>
+			
+		</div>
+		
+	</div>
+	<app-footer></app-footer>
+</div>

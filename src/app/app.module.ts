@@ -8,6 +8,9 @@ import { FooterComponent } from './components/footer/footer.component';
 import { TiendaProductListComponent } from './components/tienda-product-list/tienda-product-list.component';
 import { CarritoComponent } from './page/carrito/carrito.component';
 import { PagoComponent } from './page/pago/pago.component';
+import { EnvioComponent } from './page/envio/envio.component';
+import { RevisarComponent } from './page/revisar/revisar.component';
+import { TiendaProductListImgComponent } from './components/tienda-product-list-img/tienda-product-list-img.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +19,10 @@ import { PagoComponent } from './page/pago/pago.component';
     FooterComponent,
     TiendaProductListComponent,
     CarritoComponent,
-    PagoComponent
+    PagoComponent,
+    EnvioComponent,
+    RevisarComponent,
+    TiendaProductListImgComponent
   ],
   imports: [
     BrowserModule,
