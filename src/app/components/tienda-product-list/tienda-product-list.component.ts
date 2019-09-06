@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TiendaService } from './../../service/tienda.service';
 
 @Component({
   selector: 'app-tienda-product-list',
@@ -7,11 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TiendaProductListComponent implements OnInit {
 
-  constructor() { }
+  	constructor(private service:TiendaService) { }
+ 
+	tiendas: any=[]
 
-  
-
+ 
   ngOnInit() {
+
+  	//this.service.list().subscribe(
+	//	res=> this.tiendas = res,
+	//	err=> console.error(err)
+	//);
+
+	this.tiendas = this.service.list();
   }
+
+  removeProduct(){}
+  pay(){}
+
 
 }
