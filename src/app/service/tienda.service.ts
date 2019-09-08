@@ -14,7 +14,7 @@ export class TiendaService {
 
   list(){
 	//return this.http.get(this.URL+'list');
-
+	
 	return [
 		{
 			id:"1",

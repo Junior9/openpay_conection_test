@@ -1,109 +1,258 @@
-<div class="pago">
-	<app-header></app-header>
+<script type="text/javascript">
 
-	<nav aria-label="breadcrumb">
-	  <ol class="breadcrumb">
-	    <li class="breadcrumb-item">1 Envío</li>
-	    <li class="breadcrumb-item active">2 Pago</li>
-	    <li class="breadcrumb-item">3 Revisar</li>
-	  </ol>
-	</nav>
+$(document).ready(function(){
+	function setDisableElements(_status){
+		$('.disableOnSubmit').attr('disabled', _status);
+	};
+	
+	function displayResultsCard(_message, _response, _sandboxMode) {
+		setDisableElements(false);
+		$('#responseCard').text(_message + (_response !== null ? ' ' + JSON.stringify(_response) : ''));
+	};
 
-	<div class="inf_tarjeta">
+	function successCard(_responseData) {
+		displayResultsCard('Request proceessed successfully: ', _responseData);
+	};
+	function errorCard(_errorResponseData){
+		displayResultsCard('An error has been ocurred: ', _errorResponseData);
+	};
+	
+    function setMode(mode){
+      OpenPay.setSandboxMode(true);
+    }
+    
+	function callCreateToken() {
+		var _id = '', _apiKey = '', _data = null, _dataCard = '';
+		
+		setDisableElements(true);
+		$('#responseCard').text('');
+		$('#dataCard').text('');
+        setMode($('#mode').val());
 
-		<div class="row">
-			<div class="col"></div>
-			<div class="col">
-				<h4>Pagar con tarjeta</h4>
-				<small>Selecciona tu tipo de tarjeta</small>
+		_id = 'm8sqkijxlviacxkxgzjm';
+		_apiKey = 'pk_8fe67630bfbd4c8e95cf24f806bf2909';
+        _dataCard = OpenPay.extractFormInfo($('#processCard'));
+		
+
+		$('#dataCard').text(JSON.stringify(_dataCard));
+
+		try {
+			OpenPay.setId(_id);
+			OpenPay.setApiKey(_apiKey);
+			OpenPay.token.create(_dataCard, successCard, errorCard);
+		} catch (e) {
+			setDisableElements(true);
+			displayResultsCard('Request failed (invalid data)', null);
+		}
+	};
+
+	
+	$('#makeRequestCard').click(function(e){
+		console.log("Aqui estoy");   
+		$('#showData').val() ==  callCreateToken();
+	});
+});
+</script>
+
+
+
+
+<style type="text/css">
+.tableCell {
+	width: 48%;
+	display: table-cell;
+	padding: 10px;
+}
+
+.tableRow {
+	width: 800px;
+	display: table-row;
+}
+
+p {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	color: #333;
+	margin-top: 5px;
+	margin-right: 0px;
+	margin-bottom: 8px;
+	margin-left: 0px;
+}
+
+.table {
+	display: table;
+	width: 800px;
+	padding: 5px;
+	margin: 0px;
+}
+
+.inputText {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	width: 100%;
+}
+
+.inputTextarea {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	height: 280px;
+	width: 100%;
+}
+fieldset {
+	width: 800px;
+}
+
+label {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+</style>
+
+
+
+
+
+<body>
+	<h1>OpenPay Javascript API Library Test</h1>
+
+	<div class="table">
+		<div class="tableRow">
+			<div class="tableCell">
+				<p>Mode: </p>
+				<select id="mode" class="inputSelect disableOnSubmit">
+					<option value="Develop">Develop</option>
+					<option value="Sandbox">Sandbox</option>
+					<option value="Production">Production</option>
+				</select>
 			</div>
-			<div class="col"></div>
 		</div>
+		<div class="tableRow">
+			<div class="tableCell">
+				<p>Merchant ID:</p>
+				<input type="text" class="inputText disableOnSubmit" id="id" value="mqxn16kmicqj2fde6fhi" size="50" />
+			</div>
+			<div class="tableCell">
+				<p>Request API Key:</p>
+				<input type="text" class="inputText disableOnSubmit" id="apiKey" value="pk_c74367b872364e91b3143c5d87d64bb8"
+					size="50" />
+			</div>
+		</div>
+	</div>
+
+
+	<fieldset>
 		
 
 
-		<div class="select_tarjeta">
-
-			<div class="tipo_tarjeta">
-				<div class="row">
-
-					<div class="col"></div>
-					<div class="col"><img src="https://png.pngtree.com/png-clipart/20190520/original/pngtree-visa-flat-icon-design-png-image_4094036.jpg" height="42" width="42"></div>
-					<div class="col"><img src="https://png.pngtree.com/png-clipart/20190520/original/pngtree-visa-flat-icon-design-png-image_4094036.jpg" height="42" width="42"></div>
-					<div class="col"></div>
+		<div class="table">
+			<div class="tableRow">
+				<div class="tableCell">
+					<p>Show Data: </p>
+					<select id="showData" class="inputSelect disableOnSubmit">
+						<option value="true">true</option>
+						<option value="false">false</option>
+					</select>
 				</div>
 			</div>
-			
 		</div>
-
-		<div class="inf">
-			
-
-			<form action="#" method="POST" id="payment-form">
-                <input type="hidden" name="token_id" id="token_id">
-                <div class="pymnt-itm card active">
-                    <h2>Tarjeta de crédito o débito</h2>
-                    <div class="pymnt-cntnt">
-                        <div class="card-expl">
-                            <div class="credit"><h4>Tarjetas de crédito</h4></div>
-                            <div class="debit"><h4>Tarjetas de débito</h4></div>
-                        </div>
-                        <div class="sctn-row">
-                            <div class="sctn-col l">
-                                <label>Nombre del titular</label><input type="text" placeholder="Como aparece en la tarjeta" autocomplete="off" data-openpay-card="holder_name">
-                            </div>
-                            <div class="sctn-col">
-                                <label>Número de tarjeta</label><input type="text" autocomplete="off" data-openpay-card="card_number"></div>
-                            </div>
-                            <div class="sctn-row">
-                                <div class="sctn-col l">
-                                    <label>Fecha de expiración</label>
-                                    <div class="sctn-col half l"><input type="text" placeholder="Mes" data-openpay-card="expiration_month"></div>
-                                    <div class="sctn-col half l"><input type="text" placeholder="Año" data-openpay-card="expiration_year"></div>
-                                </div>
-                                <div class="sctn-col cvv"><label>Código de seguridad</label>
-                                    <div class="sctn-col half l"><input type="text" placeholder="3 dígitos" autocomplete="off" data-openpay-card="cvv2"></div>
-                                </div>
-                            </div>
-                            <div class="openpay"><div class="logo">Transacciones realizadas vía:</div>
-                            <div class="shield">Tus pagos se realizan de forma segura con encriptación de 256 bits</div>
-                        </div>
-                        <div class="sctn-row">
-                                <a href="/revisar" class="btn btn-primary">Pagar</a>
-                        </div>
-                    </div>
-                </div>
-            </form>
-
-		</div>
-
-	</div>
-
-	<div class="inf_paypal">
-
-		<div class="row">
-			<div class="col"></div>
-			<div class="col">
-				<h4>Pagar con Paypal</h4>
-			</div>
-			<div class="col"></div>
-		</div>
-
-		<div class="row">
-			<form>
-
-				<div class="col"></div>
-				<div class="col">
-					<div class="form-group">
-			    		<input type="text" class="form-control" id="paypal" aria-describedby="paypal" placeholder="Cuenta de PayPal">
-			  		</div>
-			  		<a href="#" class="btn btn-primary">Enviar</a>
+		<!-- form to create a card -->
+		<div class="table">
+			<form id="processCard">
+				<div class="tableRow">
+					<div class="tableCell">
+						<p>Holder Name:</p>
+						<input type="text" data-openpay-card="holder_name" class="inputText disableOnSubmit" id="holderName" size="50"
+							value="Juan Perez Ramirez" />
+					</div>
+					<div class="tableCell">
+						<p>Card number:</p>
+						<input type="text" data-openpay-card="card_number" class="inputText disableOnSubmit" id="cardNumber" size="50"
+							value="4111111111111111" />
+					</div>
 				</div>
-				<div class="col"></div>
+				<div class="tableRow">
+					<div class="tableCell">
+						<p>Expiration year:</p>
+						<input type="text" data-openpay-card="expiration_year" class="inputText disableOnSubmit" id="expirationYear" size="4" value="20" />
+					</div>
+					<div class="tableCell">
+						<p>Expiration month:</p>
+						<input type="text" data-openpay-card="expiration_month" class="inputText disableOnSubmit" id="expirationMonth" size="4"
+							value="04" /> 
+					</div>
+				</div>
+				
+				<div class="tableRow">
+					<div class="tableCell">
+						<p>cvv2:</p>
+						<input type="text" data-openpay-card="cvv2" class="inputText disableOnSubmit" id="cvv2" size="5" value="110" />
+					</div>
+				</div>
+				
+				<fieldset>
+					
+					<div class="tableRow">
+						<div class="tableCell">
+							<p>Street:</p>
+							<input type="text" data-openpay-card-address="line1" class="inputText disableOnSubmit" id="line1" size="20" value="Av 5 de febrero" />
+						</div>
+						<div class="tableCell">
+							<p>Number:</p>
+							<input type="text" data-openpay-card-address="line2" class="inputText disableOnSubmit" id="line2" size="20" value="Roble 207" />
+						</div>
+						<div class="tableCell">
+							<p>References:</p>
+							<input type="text" data-openpay-card-address="line3" class="inputText disableOnSubmit" id="line3" size="20" value="Queretaro" />
+						</div>
+					</div>
+					<div class="tableRow">
+						<div class="tableCell">
+							<p>Postal code:</p>
+							<input type="text" data-openpay-card-address="postal_code" class="inputText disableOnSubmit" id="postal_code" size="6" value="76900" />
+						</div>
+						<div class="tableCell">
+							<p>City:</p>
+							<input type="text" data-openpay-card-address="city" class="inputText disableOnSubmit" id="city" size="20" value="Queretaro" />
+						</div>
+						<div class="tableCell">
+							<p>State:</p>
+							<input type="text" data-openpay-card-address="state" class="inputText disableOnSubmit" id="state" size="20" value="Queretaro" />
+						</div>
+					</div>
+					<div class="tableRow">
+						<div class="tableCell">
+							<p>Country code:</p>
+							<input type="text" data-openpay-card-address="country_code" class="inputText disableOnSubmit" id="country_code" size="3" value="MX" />
+						</div>
+					</div>
+				</fieldset>
 			</form>
-			
 		</div>
-		
-	</div>
-	<app-footer></app-footer>
-</div>
+		<div class="table">
+			<!-- fin form to create a card -->
+			<div class="tableRow">
+				<div class="tableCell">
+					<p>
+						Create Card Request data 
+					</p>
+					<textarea id="dataCard" class="inputTextarea disableOnSubmit" rows="19" cols="50">
+    
+                </textarea>
+				</div>
+				<div class="tableCell">
+					<p class="response">Request response:</p>
+					<textarea id="responseCard" class="inputTextarea disableOnSubmit" rows="19" cols="50">
+                </textarea>
+				</div>
+			</div>
+			<div class="tableRow">
+				<div class="tableCell">
+					<input type="button" class="disableOnSubmit" id="makeRequestCard" value="Create" />
+				</div>
+			</div>
+		</div>
+	</fieldset>
+
+
+

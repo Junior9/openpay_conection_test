@@ -12,4 +12,17 @@ export class PagoComponent implements OnInit {
   ngOnInit() {
   }
 
+
+  pay(){
+
+
+  	 //OpenPay.token.extractFormAndCreate('payment-form', success_callbak, error_callbak);  
+  }
+
+
+
+
+
+
+
 }
